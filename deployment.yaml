@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: netdebug-deployment
+  labels:
+    app: netdebug-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: netdebug
+  template:
+    metadata:
+      labels:
+        app: netdebug
+    spec:
+      nodeSelector:
+        "kubernetes.io/os": linux
+      containers:
+      - name: netdebug
+        image: tmcmmregistry.azurecr.io/netdebug:v1
+        ports:
+        - containerPort: 80
